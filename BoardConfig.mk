@@ -13,6 +13,18 @@ BUILD_BROKEN_MISSING_REQUIRED_MODULES := true
 # A/B support
 AB_OTA_UPDATER := true
 
+# Prebuilts
+TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb.img
+
+# Prebuilts
+BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/dtbo.img
+TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/$(BOARD_KERNEL_IMAGE_NAME)
+
+# Recovery
+TARGET_RECOVERY_DEVICE_DIRS += $(DEVICE_PATH)
+TW_Y_OFFSET := 75
+TW_H_OFFSET := -75
+
 AB_OTA_PARTITIONS += \
     boot \
     recovery \
