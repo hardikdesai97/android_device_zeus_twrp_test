@@ -1,96 +1,60 @@
 #
-# Copyright 2018 The Android Open Source Project
-# Copyright 2014-2022 The Team Win LLC
+# Copyright (C) 2020 The TwrpBuilder Open-Source Project
 #
-# SPDX-License-Identifier: Apache-2.0
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 #
 
-# Inherit from common AOSP config
+# Configure base.mk
 $(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
 
-# Inherit from those products. Most specific first.
+# Configure core_64_bit_only.mk
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit_only.mk)
 
-# Enable updating of APEXes
-$(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
-
-# Installs gsi keys into ramdisk, to boot a GSI with verified boot.
+# Configure gsi_keys.mk
 $(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
 
-# Ihnerit virtual_ab_ota product
+# Configure Virtual A/B
 $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
 
-# Dynamic partitions
-PRODUCT_USE_DYNAMIC_PARTITIONS := true
+# Configure SDCard replacement functionality
+$(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
 
-# API
-PRODUCT_SHIPPING_API_LEVEL := 30
-
-# A/B
-ENABLE_VIRTUAL_AB := true
-
-AB_OTA_POSTINSTALL_CONFIG += \
-    RUN_POSTINSTALL_system=true \
-    POSTINSTALL_PATH_system=system/bin/otapreopt_script \
-    FILESYSTEM_TYPE_system=erofs \
-    POSTINSTALL_OPTIONAL_system=true
+# Configure twrp
+$(call inherit-product, vendor/twrp/config/common.mk)
 
 PRODUCT_PACKAGES += \
-    update_engine \
-    update_engine_client \
-    update_engine_sideload \
-    update_verifier
+    bootctrl.xiaomi_sm8475.recovery \
+    android.hardware.boot@1.2-impl-qti.recovery
 
-# Qcom Decryption
-PRODUCT_PACKAGES += \
-    qcom_decrypt \
-    qcom_decrypt_fbe
+# SHIPPING API
+PRODUCT_SHIPPING_API_LEVEL := 31
+# VNDK API
+PRODUCT_TARGET_VNDK_VERSION := 31
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
-    $(DEVICE_PATH) \
-    vendor/qcom/opensource/commonsys-intf/display
+    $(DEVICE_PATH)
 
-PRODUCT_PACKAGES += \
-    checkpoint_gc \
-    otapreopt_script
+PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
-PRODUCT_PACKAGES += \
-    android.hardware.boot@1.1-impl-qti \
-    android.hardware.boot@1.1-impl-qti.recovery \
-    android.hardware.boot@1.1-service \
-    bootctrl.taro \
-    bootctrl.taro.recovery
+# otacert
+PRODUCT_EXTRA_RECOVERY_KEYS += \
+    $(DEVICE_PATH)/security/miui_releasekey \
 
-PRODUCT_PACKAGES_DEBUG += \
-    bootctl
+TWRP_REQUIRED_MODULES += \
+    miui_prebuilt \
+    magisk_prebuilt \
 
-# Fastbootd
-PRODUCT_PACKAGES += \
-    android.hardware.fastboot@1.0-impl-mock \
-    fastbootd
-
-# Health
-PRODUCT_PACKAGES += \
-    android.hardware.health@2.1-impl \
-    android.hardware.health@2.1-service
-
-# Overrides
-PRODUCT_BUILD_PROP_OVERRIDES += \
-    PRODUCT_NAME=$(PRODUCT_RELEASE_NAME) \
-    TARGET_DEVICE=$(PRODUCT_RELEASE_NAME)
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.product.device=$(PRODUCT_RELEASE_NAME)
-
-TARGET_RECOVERY_DEVICE_MODULES += \
-    libion \
-    vendor.display.config@1.0 \
-    vendor.display.config@2.0 \
-    libdisplayconfig.qti
-
-RECOVERY_LIBRARY_SOURCE_FILES += \
-    $(TARGET_OUT_SHARED_LIBRARIES)/libion.so \
-    $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/vendor.display.config@1.0.so \
-    $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/vendor.display.config@2.0.so \
-    $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/libdisplayconfig.qti.so
+ifneq ($(TW_SKKK_VER_CODE),)
+PRODUCT_PROPERTY_OVERRIDES += ro.twrp.version.skkk.code=$(TW_SKKK_VER_CODE)
+endif
