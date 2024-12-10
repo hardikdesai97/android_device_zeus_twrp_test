@@ -20,7 +20,7 @@ TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
 TARGET_CPU_ABI2 :=
-TARGET_CPU_VARIANT := kryo
+TARGET_CPU_VARIANT := kryo300
 
 TARGET_2ND_ARCH := arm
 TARGET_2ND_ARCH_VARIANT := $(TARGET_ARCH_VARIANT)
@@ -39,9 +39,9 @@ TARGET_NO_BOOTLOADER := true
 TARGET_USES_UEFI := true
 
 # Platform
-TARGET_BOARD_PLATFORM := xiaomi_sm8475
-TARGET_BOARD_PLATFORM_GPU := qcom-adreno740
-QCOM_BOARD_PLATFORMS += xiaomi_sm8475
+TARGET_BOARD_PLATFORM := xiaomi_sm8450
+TARGET_BOARD_PLATFORM_GPU := qcom-adreno730
+QCOM_BOARD_PLATFORMS += xiaomi_sm8450
 #BOARD_USES_QCOM_HARDWARE := true
 
 # Kernel
@@ -115,6 +115,13 @@ $(foreach p, $(BOARD_PARTITION_LIST), $(eval TARGET_COPY_OUT_$(p) := $(call to-l
 
 BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := f2fs
 
+# TWRP notch offsets
+TW_Y_OFFSET := 99
+TW_H_OFFSET := -99
+
+# Blacklist Goodix fingerprint. There's no reason to include this input in recovery
+TW_INPUT_BLACKLIST := "uinput-goodix"
+
 # File systems
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
@@ -183,8 +190,9 @@ TW_SUPPORT_INPUT_AIDL_HAPTICS := true
 TW_SUPPORT_INPUT_AIDL_HAPTICS_FQNAME := "IVibrator/vibratorfeature"
 TW_SUPPORT_INPUT_AIDL_HAPTICS_FIX_OFF := true
 TW_USE_SERIALNO_PROPERTY_FOR_DEVICE_ID := true
-#TW_NO_SCREEN_BLANK := true
-TW_LOAD_VENDOR_MODULES := "fts_touch_spi.ko xiaomi_touch.ko"
+TW_LOAD_VENDOR_BOOT_MODULES := true
+TW_NO_SCREEN_BLANK          := true
+TW_LOAD_VENDOR_MODULES  += "adsp_loader_dlkm.ko qti_battery_charger.ko synaptics_tcm_core_module.ko haptic.ko swr_haptics_dlkm.ko goodix_core.ko focaltech_fps.ko"
 TW_CUSTOM_CPU_TEMP_PATH := "/sys/class/thermal/thermal_zone35/temp"
 TW_BATTERY_SYSFS_WAIT_SECONDS := 6
 TW_BACKUP_EXCLUSIONS := /data/fonts
