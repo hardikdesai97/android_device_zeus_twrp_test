@@ -6,8 +6,22 @@
 
 DEVICE_PATH := device/xiaomi/unicorn
 
+# Log touch input
+TWRP_EVENT_LOGGING := true
+
+RECOVERY_VARIANT := twrp
+
 # Building with minimal manifest
 ALLOW_MISSING_DEPENDENCIES := true
+
+# swap x anf y axis for touch
+RECOVERY_TOUCHSCREEN_SWAP_XY := true
+
+# flip x axis for touch
+RECOVERY_TOUCHSCREEN_FLIP_X := true
+
+# flip y axis for touch ,
+RECOVERY_TOUCHSCREEN_FLIP_Y := true
 
 # TWRP 12.1 requirements
 TARGET_SUPPORTS_64_BIT_APPS := true
