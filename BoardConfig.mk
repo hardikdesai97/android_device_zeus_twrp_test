@@ -73,6 +73,7 @@ BOARD_RAMDISK_USE_LZ4 := true
 
 # A/B
 BOARD_EXCLUDE_KERNEL_FROM_RECOVERY_IMAGE := true
+BOARD_USES_GENERIC_KERNEL_IMAGE          := true
 BOARD_BUILD_SYSTEM_ROOT_IMAGE := false
 
 AB_OTA_UPDATER := true
@@ -157,7 +158,7 @@ TW_INCLUDE_FASTBOOTD := true
 
 # Other TWRP Configurations
 TW_THEME := portrait_hdpi
-TW_FRAMERATE := 120
+TW_FRAMERATE := 60
 RECOVERY_SDCARD_ON_DATA := true
 TARGET_RECOVERY_QCOM_RTC_FIX := true
 TW_EXCLUDE_DEFAULT_USB_INIT := true
@@ -183,7 +184,7 @@ TW_SUPPORT_INPUT_AIDL_HAPTICS_FQNAME := "IVibrator/vibratorfeature"
 TW_SUPPORT_INPUT_AIDL_HAPTICS_FIX_OFF := true
 TW_USE_SERIALNO_PROPERTY_FOR_DEVICE_ID := true
 #TW_NO_SCREEN_BLANK := true
-TW_LOAD_VENDOR_MODULES := "adsp_loader_dlkm.ko fts_touch_spi.ko focaltech.ko xiaomi_touch.ko qti_battery_charger.ko"
+TW_LOAD_VENDOR_MODULES := "fts_touch_spi.ko xiaomi_touch.ko"
 TW_CUSTOM_CPU_TEMP_PATH := "/sys/class/thermal/thermal_zone35/temp"
 TW_BATTERY_SYSFS_WAIT_SECONDS := 6
 TW_BACKUP_EXCLUSIONS := /data/fonts
