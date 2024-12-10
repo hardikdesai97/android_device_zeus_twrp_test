@@ -39,9 +39,9 @@ TARGET_NO_BOOTLOADER := true
 TARGET_USES_UEFI := true
 
 # Platform
-TARGET_BOARD_PLATFORM := xiaomi_sm8450
+TARGET_BOARD_PLATFORM := xiaomi_sm8475
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno730
-QCOM_BOARD_PLATFORMS += xiaomi_sm8450
+QCOM_BOARD_PLATFORMS += xiaomi_sm8475
 #BOARD_USES_QCOM_HARDWARE := true
 
 # Kernel
@@ -192,7 +192,7 @@ TW_SUPPORT_INPUT_AIDL_HAPTICS_FIX_OFF := true
 TW_USE_SERIALNO_PROPERTY_FOR_DEVICE_ID := true
 TW_LOAD_VENDOR_BOOT_MODULES := true
 TW_NO_SCREEN_BLANK          := true
-TW_LOAD_VENDOR_MODULES  += "adsp_loader_dlkm.ko qti_battery_charger.ko synaptics_tcm_core_module.ko haptic.ko swr_haptics_dlkm.ko goodix_core.ko focaltech_fps.ko"
+TW_LOAD_VENDOR_MODULES  += "focaltech_fts.ko adsp_loader_dlkm.ko qti_battery_charger.ko goodix_core.ko aw8697-haptic.ko_fps.ko atmel_mxt_ts.ko nt36xxx-i2c.ko nt36xxx-spi.ko synaptics_dsx.ko fts_touch_spi.ko xiaomi_touch.ko"
 TW_CUSTOM_CPU_TEMP_PATH := "/sys/class/thermal/thermal_zone35/temp"
 TW_BATTERY_SYSFS_WAIT_SECONDS := 6
 TW_BACKUP_EXCLUSIONS := /data/fonts
