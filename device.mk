@@ -33,8 +33,8 @@ PRODUCT_PACKAGES += \
     android.hardware.boot@1.2-impl.recovery
 
 PRODUCT_PACKAGES += \
-    bootctrl.xiaomi_sm8450 \
-    bootctrl.xiaomi_sm8450.recovery \
+    bootctrl.xiaomi_sm8475 \
+    bootctrl.xiaomi_sm8475.recovery \
     android.hardware.boot@1.2-impl-qti.recovery
 
 # SHIPPING API
