@@ -37,11 +37,6 @@ PRODUCT_PACKAGES += \
     bootctrl.xiaomi_sm8450.recovery \
     android.hardware.boot@1.2-impl-qti.recovery
 
-# Soong namespaces
-PRODUCT_SOONG_NAMESPACES += \
-	$(DEVICE_PATH) \
-	vendor/qcom/opensource/commonsys-intf/display
-
 # SHIPPING API
 PRODUCT_SHIPPING_API_LEVEL := 31
 
